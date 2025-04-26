@@ -25,10 +25,11 @@ if (isset($_SESSION['admin'])) {
         <nav>
             <a href="#">Főoldal</a>
             <a href="./views/randomszocikk.php">Véletlenszerű szócikk</a>
-            <a href="./actions/logout.php">Kijelentkezés</a>
+            <a href="./views/hibajelentes.php">Hibajelentés</a>
             <?php if ($isAdmin) : ?>
                 <a href="./views/admin.php">Admin</a>
             <?php endif; ?>
+            <a href="./actions/logout.php">Kijelentkezés</a>
         </nav>
     </header>
     <main>
