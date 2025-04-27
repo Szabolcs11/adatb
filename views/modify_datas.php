@@ -3,6 +3,13 @@ session_start();
 
 require_once './../db/connection.php';
 
+
+if ($_SESSION['admin'] == 0) {
+
+    header("Location: ../index.php");
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     // Felhasználók kezelése
     if (isset($_POST['felhasznalok'])) {
@@ -30,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         $sql = "INSERT INTO felhasznalo (nev, jelszo, email, admin) VALUES (:nev, :jelszo, :email, 0)";
         $stid = oci_parse($conn, $sql);
         oci_bind_by_name($stid, ':nev', $_POST['uj_felhasznalo']['nev']);
-        oci_bind_by_name($stid, ':jelszo', $_POST['uj_felhasznalo']['jelszo']);
+        oci_bind_by_name($stid, ':jelszo', password_hash($_POST['uj_felhasznalo']['jelszo'], PASSWORD_DEFAULT));
         oci_bind_by_name($stid, ':email', $_POST['uj_felhasznalo']['email']);
 
         if (!oci_execute($stid)) {
