@@ -1,0 +1,111 @@
+TRIGGEREK
+1. Szócikk módosításakor lefut egy trigger, amely a SZOCIKK_UPDATED táblába szúr be új sort.
+
+CREATE TABLE SZOCIKK_UPDATED (
+    id NUMBER PRIMARY KEY,
+    SzocikkID NUMBER,
+    UjTartalom VARCHAR2(4000),
+    ModositasDatum DATE
+)
+CREATE SEQUENCE SZOCIKK_UPDATED_SEQ START WITH 1 INCREMENT BY 1;
+
+CREATE OR REPLACE TRIGGER trg_szocikk_update
+AFTER UPDATE ON SZOCIKK
+FOR EACH ROW
+BEGIN
+    INSERT INTO SZOCIKK_UPDATED (id, SzocikkID, UjTartalom, ModositasDatum)
+    VALUES (SZOCIKK_UPDATED_SEQ.NEXTVAL, :NEW.id, :NEW.Tartalom, SYSDATE);
+END;
+/
+
+2. Szócikk módosításakor a SZOCIKK.MODOSITAS_DATUM módosul trigger segítségével
+CREATE OR REPLACE TRIGGER trg_szocikk_modositas_datum
+BEFORE UPDATE ON SZOCIKK
+FOR EACH ROW
+BEGIN
+    :NEW.MODOSITAS_DATUM := SYSDATE;
+END;
+/
+
+TÁROLT ELJÁRÁSOK
+Szócikk törlése tárolt eljárás segítségével
+CREATE OR REPLACE PROCEDURE proc_torol_szocikk (
+    p_id IN NUMBER
+)
+AS
+BEGIN
+    DELETE FROM SZOCIKK
+    WHERE ID = p_id;
+END;
+/
+new_szocikk.php 166. Sor BEGIN proc_torol_szocikk(:id); END;
+
+
+ÖSSZETETT LEKÉRDEZÉSEL
+
+new_szocikk.php
+180. Sor Összetett lekérdezés
+SELECT s.*, 
+       (SELECT LISTAGG(k.NEV, ', ') WITHIN GROUP (ORDER BY k.NEV) 
+        FROM KATEGORIA k JOIN SZOCIKKKATEGORIA sk ON k.ID = sk.KATEGORIA_ID 
+        WHERE sk.SZOCIKK_ID = s.ID) AS KATEGORIAK,
+       (SELECT LISTAGG(t.NEV, ', ') WITHIN GROUP (ORDER BY t.NEV) 
+        FROM TEMAKOR t JOIN SZOCIKKTEMAKOR st ON t.ID = st.TEMAKOR_ID 
+        WHERE st.SZOCIKK_ID = s.ID) AS TEMAKOROK,
+       (SELECT LISTAGG(ks.SZO, ', ') WITHIN GROUP (ORDER BY ks.SZO) 
+        FROM KULCSSZO ks JOIN SZOCIKKKULCSSZO sk ON ks.ID = sk.KULCSSZO_ID 
+        WHERE sk.SZOCIKK_ID = s.ID) AS KULCSSZAVAK
+       FROM SZOCIKK s
+       ORDER BY s.LETREHOZAS_DATUM DESC
+
+
+szocikk.php
+6. Sor Összetett lekérdezés
+SELECT 
+    s.ID,
+    s.CIM,
+    TO_CHAR(s.LETREHOZAS_DATUM, 'YYYY-MM-DD') AS LETREHOZAS_DATUM,
+    TO_CHAR(s.MODOSITAS_DATUM, 'YYYY-MM-DD') AS MODOSITAS_DATUM,
+    s.STATUSZ,
+    s.SZERZO_ID,
+    f.NEV AS SZERZO_NEV,
+    s.TARTALOM,
+
+    -- Kulcsszavak
+    (SELECT LISTAGG(k.SZO, ', ') WITHIN GROUP (ORDER BY k.SZO)
+     FROM SZOCIKKKULCSSZO sk
+     JOIN KULCSSZO k ON sk.KULCSSZO_ID = k.ID
+     WHERE sk.SZOCIKK_ID = s.ID
+    ) AS KULCSSZAVAK,
+
+    -- Kategóriák
+    (SELECT LISTAGG(kat.NEV, ', ') WITHIN GROUP (ORDER BY kat.NEV)
+     FROM SZOCIKKKATEGORIA sk
+     JOIN KATEGORIA kat ON sk.KATEGORIA_ID = kat.ID
+     WHERE sk.SZOCIKK_ID = s.ID
+    ) AS KATEGORIAK,
+
+    -- Témakörök
+    (SELECT LISTAGG(t.ID || ':' || t.NEV, ', ') WITHIN GROUP (ORDER BY t.NEV)
+     FROM SZOCIKKTEMAKOR st
+     JOIN TEMAKOR t ON st.TEMAKOR_ID = t.ID
+     WHERE st.SZOCIKK_ID = s.ID
+    ) AS TEMAKOROK
+
+FROM SZOCIKK s
+LEFT JOIN FELHASZNALO f ON s.SZERZO_ID = f.ID
+WHERE s.ID = :id
+
+
+EGYSZERŰ LEKÉRDEZÉSEK
+
+admin.php
+3 Alap lekérdezés
+6-26. Sor
+SELECT COUNT(*) AS COUNT FROM FELHASZNALO
+SELECT COUNT(*) AS COUNT FROM SZOCIKK
+SELECT COUNT(*) AS COUNT FROM TEMAKOR
+
+Témakörök listázása
+index.php 41. sor
+SELECT ID, NEV FROM TEMAKOR

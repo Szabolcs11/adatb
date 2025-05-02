@@ -77,7 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $sql = "UPDATE SZOCIKK SET 
                 CIM = :cim, 
-                MODOSITAS_DATUM = SYSDATE, 
                 STATUSZ = :statusz, 
                 SZERZO_ID = :szerzo_id, 
                 TARTALOM = :tartalom 
@@ -164,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     oci_execute($stmt);
 
     // Then delete the article
-    $sql = "DELETE FROM SZOCIKK WHERE ID = :id";
+    $sql = "BEGIN proc_torol_szocikk(:id); END;";
     $stmt = oci_parse($conn, $sql);
     oci_bind_by_name($stmt, ':id', $id);
 

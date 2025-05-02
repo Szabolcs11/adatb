@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - Saturday-April-26-2025   
+--  File created - Friday-May-02-2025   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Sequence FELHASZNALO_SEQ
@@ -21,6 +21,11 @@
 --------------------------------------------------------
 
    CREATE SEQUENCE  "SYSTEM"."NYELV_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence SZOCIKK_UPDATED_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SYSTEM"."SZOCIKK_UPDATED_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Table AQ$_SCHEDULES
 --------------------------------------------------------
@@ -471,6 +476,21 @@
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM" ;
 --------------------------------------------------------
+--  DDL for Table SZOCIKK_UPDATED
+--------------------------------------------------------
+
+  CREATE TABLE "SYSTEM"."SZOCIKK_UPDATED" 
+   (	"ID" NUMBER, 
+	"SZOCIKKID" NUMBER, 
+	"UJTARTALOM" VARCHAR2(4000 BYTE), 
+	"MODOSITASDATUM" DATE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
 --  DDL for Table TEMAKOR
 --------------------------------------------------------
 
@@ -507,7 +527,7 @@ Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) v
 Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (3,'Tóth Gergő','gergo.toth@example.com','hashedpassword3',to_date('23-MAR-25','DD-MON-RR'),0);
 Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (4,'Nagy Júlia','julia.nagy@example.com','hashedpassword4',to_date('23-MAR-25','DD-MON-RR'),0);
 Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (5,'Farkas Dávid','david.farkas@example.com','hashedpassword5',to_date('23-MAR-25','DD-MON-RR'),1);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (21,'asd','asd@asd.com','$2y$10$l/.MfmsgBb71OZXC2TT.QudjTqMtxq98PRpUwvomXTmti3Mqdg226',to_date('22-APR-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (21,'asd','asd@asd.com','$2y$10$l/.MfmsgBb71OZXC2TT.QudjTqMtxq98PRpUwvomXTmti3Mqdg226',to_date('22-APR-25','DD-MON-RR'),1);
 Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (22,'asd2','asd@gmail.com','$2y$10$4n47rRJ08ROpulkbB9R4NO22mswPiCDCDaLg9qn0HTVjSv3soDKSS',to_date('22-APR-25','DD-MON-RR'),0);
 Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (25,'asd3','asd3@gmail.com','$2y$10$Jv8A33Owd/T3GvxIltXwrulpGR6bz56q8dusTqLKX8Xi8C5gEqUB.',to_date('22-APR-25','DD-MON-RR'),0);
 Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (27,'asd1','asd1@asd.com','$2y$10$1nBEm2r1ZRNE3ah8ySGqEuVN388qxDQt16gaBJMPXVWh/xDA/d5/.',to_date('22-APR-25','DD-MON-RR'),0);
@@ -1656,11 +1676,9 @@ Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZER
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (23,'Biológia alapjai',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Szerkesztés alatt',3,'A sejtek szerkezete és működése.');
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (24,'Fizikai törvények',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Elfogadva',4,'Newton törvényeinek áttekintése.');
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (25,'Történelem nagyjai',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Beküldve',5,'A középkori uralkodók élete.');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (41,'fdg',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Beküldve',41,'dfgdgfdfgfdgfdg');
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (42,'pola',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Beküldve',3,'polgi');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (43,'nbmbnm',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Beküldve',41,'bnmbnm');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (44,'dfghdsfh2',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Piszkozat',1,'dsfhdsfhsdfh3');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (62,'Alma2',to_date('26-APR-25','DD-MON-RR'),to_date('26-APR-25','DD-MON-RR'),'Publikált',1,'fa');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (44,'dfghdsfh251',to_date('26-APR-25','DD-MON-RR'),to_date('02-MAY-25','DD-MON-RR'),'Piszkozat',1,'dsfhdsfhsdfh381');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM) values (62,'Alma234',to_date('26-APR-25','DD-MON-RR'),to_date('02-MAY-25','DD-MON-RR'),'Publikált',1,'far');
 REM INSERTING into SYSTEM.SZOCIKKKATEGORIA
 SET DEFINE OFF;
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (1,1);
@@ -1671,16 +1689,9 @@ Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (4,4);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (4,5);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (5,3);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (5,5);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (41,2);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (41,4);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (41,21);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (42,3);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (42,4);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (42,22);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (43,1);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (43,2);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (43,4);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (43,21);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (44,2);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (44,4);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (62,4);
@@ -1695,13 +1706,8 @@ Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (3,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (4,1);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (4,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (5,5);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (41,1);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (41,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (42,3);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (42,4);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (43,1);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (43,2);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (43,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (44,1);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (44,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (62,2);
@@ -1718,6 +1724,13 @@ SET DEFINE OFF;
 Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (1,2);
 Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (1,3);
 Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (62,5);
+REM INSERTING into SYSTEM.SZOCIKK_UPDATED
+SET DEFINE OFF;
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (1,62,'far',to_date('02-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (2,41,'dfgdgfdfgfdgfdg43',to_date('02-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (3,44,'dsfhdsfhsdfh38',to_date('02-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (4,44,'dsfhdsfhsdfh381',to_date('02-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (5,41,'dfgdgfdfgfdgfdg434',to_date('02-MAY-25','DD-MON-RR'));
 REM INSERTING into SYSTEM.TEMAKOR
 SET DEFINE OFF;
 Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (1,'Természet',null);
@@ -1914,6 +1927,52 @@ Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (21,'Témakör',null);
   CREATE INDEX "SYSTEM"."MVIEW$_ADV_BASETABLE_IDX_01" ON "SYSTEM"."MVIEW$_ADV_BASETABLE" ("QUERYID#") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Trigger TRG_SZOCIKK_MODOSITAS_DATUM
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SYSTEM"."TRG_SZOCIKK_MODOSITAS_DATUM" 
+BEFORE UPDATE ON SZOCIKK
+FOR EACH ROW
+BEGIN
+    :NEW.MODOSITAS_DATUM := SYSDATE;
+END;
+
+/
+ALTER TRIGGER "SYSTEM"."TRG_SZOCIKK_MODOSITAS_DATUM" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger TRG_SZOCIKK_UPDATE
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SYSTEM"."TRG_SZOCIKK_UPDATE" 
+AFTER UPDATE ON SZOCIKK
+FOR EACH ROW
+BEGIN
+    INSERT INTO SZOCIKK_UPDATED (id, SzocikkID, UjTartalom, ModositasDatum)
+    VALUES (SZOCIKK_UPDATED_SEQ.NEXTVAL, :NEW.id, :NEW.Tartalom, SYSDATE);
+END;
+
+/
+ALTER TRIGGER "SYSTEM"."TRG_SZOCIKK_UPDATE" ENABLE;
+--------------------------------------------------------
+--  DDL for Procedure PROC_TOROL_SZOCIKK
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE NONEDITIONABLE PROCEDURE "SYSTEM"."PROC_TOROL_SZOCIKK" (
+    p_id IN NUMBER
+)
+AS
+BEGIN
+    DELETE FROM SZOCIKK
+    WHERE ID = p_id;
+
+    IF SQL%ROWCOUNT = 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Nincs ilyen ID a SZOCIKK táblában.');
+    END IF;
+END;
+
+/
 --------------------------------------------------------
 --  Constraints for Table MVIEW$_ADV_WORKLOAD
 --------------------------------------------------------
@@ -2296,6 +2355,16 @@ Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (21,'Témakör',null);
   ALTER TABLE "SYSTEM"."MVIEW$_ADV_OUTPUT" MODIFY ("BENEFIT_TO_COST_RATIO" NOT NULL ENABLE);
   ALTER TABLE "SYSTEM"."MVIEW$_ADV_OUTPUT" ADD CONSTRAINT "MVIEW$_ADV_OUTPUT_PK" PRIMARY KEY ("RUNID#", "RANK#")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "SYSTEM"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table SZOCIKK_UPDATED
+--------------------------------------------------------
+
+  ALTER TABLE "SYSTEM"."SZOCIKK_UPDATED" ADD PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSTEM"  ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table HIBA
