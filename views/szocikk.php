@@ -8,6 +8,8 @@ $sql = "SELECT
     s.CIM,
     TO_CHAR(s.LETREHOZAS_DATUM, 'YYYY-MM-DD') AS LETREHOZAS_DATUM,
     TO_CHAR(s.MODOSITAS_DATUM, 'YYYY-MM-DD') AS MODOSITAS_DATUM,
+    s.KEP_BINARIS,
+    s.NYELV,
     s.STATUSZ,
     s.SZERZO_ID,
     f.NEV AS SZERZO_NEV,
@@ -121,6 +123,17 @@ oci_close($conn);
                 <hr>
                 <div class="content">
                     <p><?= nl2br(htmlspecialchars($szocikk['TARTALOM'], ENT_QUOTES, 'UTF-8')) ?></p>
+                    <p><?= htmlspecialchars($content ?? "", ENT_QUOTES, 'UTF-8') ?></p>
+                    <?php
+                    $kep = $szocikk['KEP_BINARIS'] ?? '';
+                    if ($kep instanceof OCILob) {
+                        $kepContent = $kep->load();
+                        if (!empty($kepContent)) {
+                            $base64 = base64_encode($kepContent);
+                            echo "<img src='data:image/jpeg;base64,{$base64}' alt='" . htmlspecialchars($szocikk['CIM'], ENT_QUOTES, 'UTF-8') . "'>";
+                        }
+                    }
+                    ?>
                 </div>
             <?php else: ?>
                 <p>Nem található ilyen szócikk.</p>

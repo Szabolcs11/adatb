@@ -145,6 +145,28 @@ $felhasznalok = fetchAll($conn, "SELECT * FROM felhasznalo");
 $kategoriak = fetchAll($conn, "SELECT * FROM kategoria");
 $kulcsszavak = fetchAll($conn, "SELECT * FROM kulcsszo");
 $temakorok = fetchAll($conn, "SELECT * FROM temakor");
+$nullaszocikk = fetchAll($conn, "SELECT f.id, f.nev, f.email
+                                 FROM felhasznalo f
+                                 WHERE f.id NOT IN (
+                                     SELECT DISTINCT sz.szerzo_id
+                                     FROM szocikk sz
+                                     WHERE sz.szerzo_id IS NOT NULL
+                                 )");
+$nincshozzalektor = fetchAll($conn, "SELECT sz.ID, sz.CIM, sz.NYELV, k.SZO
+                                     FROM SZOCIKK sz
+                                     INNER JOIN SZOCIKKKULCSSZO szk ON sz.ID = szk.SZOCIKK_ID
+                                     INNER JOIN KULCSSZO k ON szk.KULCSSZO_ID = k.ID
+                                     INNER JOIN LEKTOR l ON l.SZAKTERULET = k.SZO
+                                     INNER JOIN LEKTORNYELV lny ON l.id = lny.LEKTOR_ID
+                                     WHERE sz.ID NOT IN (
+                                         SELECT sz.ID
+                                         FROM SZOCIKK sz
+                                         INNER JOIN SZOCIKKKULCSSZO szk ON sz.ID = szk.SZOCIKK_ID
+                                         INNER JOIN KULCSSZO k ON szk.KULCSSZO_ID = k.ID
+                                         INNER JOIN LEKTOR l ON l.SZAKTERULET = k.SZO
+                                         INNER JOIN LEKTORNYELV lny ON l.id = lny.LEKTOR_ID
+                                         WHERE lny.NYELV = sz.NYELV AND l.SZAKTERULET = k.SZO
+                                     )");
 ?>
 
 <!DOCTYPE html>
@@ -153,109 +175,171 @@ $temakorok = fetchAll($conn, "SELECT * FROM temakor");
 <head>
     <meta charset="UTF-8">
     <title>Adatkezelés</title>
+    <link rel="stylesheet" href="modify_datas.css">
 </head>
 
 <body>
-    <h1>Felhasználók, Kategóriák, Kulcsszavak, Témakörök kezelése</h1>
-    <form method="POST">
-        <input type="hidden" name="save" value="1">
+    <div class="container">
+        <h1>Felhasználók, Kategóriák, Kulcsszavak, Témakörök kezelése</h1>
+        <form method="POST">
+            <input type="hidden" name="save" value="1">
 
-        <h2>Felhasználók</h2>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>Név</th>
-                <th>Jelszó</th>
-                <th>Email</th>
-                <th>Törlés</th>
-            </tr>
-            <?php foreach ($felhasznalok as $index => $f): ?>
+            <div class="stats">
+                <div class="stat-card">
+                    <h2>Felhasználók</h2>
+                    <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Név</th>
+                            <th>Jelszó</th>
+                            <th>Email</th>
+                            <th>Törlés</th>
+                        </tr>
+                        <?php foreach ($felhasznalok as $index => $f): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($f['ID']) ?><input type="hidden" name="felhasznalok[<?= $index ?>][id]" value="<?= htmlspecialchars($f['ID']) ?>"></td>
+                                <td><input type="text" name="felhasznalok[<?= $index ?>][nev]" value="<?= htmlspecialchars($f['NEV']) ?>"></td>
+                                <td><input type="text" name="felhasznalok[<?= $index ?>][jelszo]" value="<?= htmlspecialchars($f['JELSZO']) ?>"></td>
+                                <td><input type="email" name="felhasznalok[<?= $index ?>][email]" value="<?= htmlspecialchars($f['EMAIL']) ?>"></td>
+                                <td><input type="checkbox" name="felhasznalok[<?= $index ?>][delete]"></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <td>Új</td>
+                            <td><input type="text" name="uj_felhasznalo[nev]"></td>
+                            <td><input type="text" name="uj_felhasznalo[jelszo]"></td>
+                            <td><input type="email" name="uj_felhasznalo[email]"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="stat-card">
+                    <h2>Kategóriák</h2>
+                    <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Név</th>
+                            <th>Törlés</th>
+                        </tr>
+                        <?php foreach ($kategoriak as $index => $k): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($k['ID']) ?><input type="hidden" name="kategoriak[<?= $index ?>][id]" value="<?= htmlspecialchars($k['ID']) ?>"></td>
+                                <td><input type="text" name="kategoriak[<?= $index ?>][nev]" value="<?= htmlspecialchars($k['NEV']) ?>"></td>
+                                <td><input type="checkbox" name="kategoriak[<?= $index ?>][delete]"></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <td>Új</td>
+                            <td><input type="text" name="uj_kategoria[nev]"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <h2>Kulcsszavak</h2>
+                    <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Szó</th>
+                            <th>Törlés</th>
+                        </tr>
+                        <?php foreach ($kulcsszavak as $index => $kulcs): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($kulcs['ID']) ?><input type="hidden" name="kulcsszavak[<?= $index ?>][id]" value="<?= htmlspecialchars($kulcs['ID']) ?>"></td>
+                                <td><input type="text" name="kulcsszavak[<?= $index ?>][SZO]" value="<?= htmlspecialchars($kulcs['SZO']) ?>"></td>
+                                <td><input type="checkbox" name="kulcsszavak[<?= $index ?>][delete]"></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <td>Új</td>
+                            <td><input type="text" name="uj_kulcsszo[SZO]"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="stat-card">
+                    <h2>Témakörök</h2>
+                    <table border="1">
+                        <tr>
+                            <th>ID</th>
+                            <th>Név</th>
+                            <th>Szülő téma ID</th>
+                            <th>Törlés</th>
+                        </tr>
+                        <?php foreach ($temakorok as $index => $t): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($t['ID']) ?><input type="hidden" name="temakorok[<?= $index ?>][id]" value="<?= htmlspecialchars($t['ID']) ?>"></td>
+                                <td><input type="text" name="temakorok[<?= $index ?>][NEV]" value="<?= htmlspecialchars($t['NEV']) ?>"></td>
+                                <td><input type="number" name="temakorok[<?= $index ?>][SZULO_TEMA_ID]" value="<?= htmlspecialchars($t['SZULO_TEMA_ID']) ?>"></td>
+                                <td><input type="checkbox" name="temakorok[<?= $index ?>][delete]"></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <td>Új</td>
+                            <td><input type="text" name="uj_temakor[NEV]"></td>
+                            <td><input type="number" name="uj_temakor[SZULO_TEMA_ID]"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="btn">Mentés</button>
+            </div>
+        </form>
+
+        <hr />
+
+        <div class="stat-card">
+            <h2>Felhasználók, akik még nem írtak cikket</h2>
+            <table border="1">
                 <tr>
-                    <td><?= htmlspecialchars($f['ID']) ?><input type="hidden" name="felhasznalok[<?= $index ?>][id]" value="<?= htmlspecialchars($f['ID']) ?>"></td>
-                    <td><input type="text" name="felhasznalok[<?= $index ?>][nev]" value="<?= htmlspecialchars($f['NEV']) ?>"></td>
-                    <td><input type="text" name="felhasznalok[<?= $index ?>][jelszo]" value="<?= htmlspecialchars($f['JELSZO']) ?>"></td>
-                    <td><input type="email" name="felhasznalok[<?= $index ?>][email]" value="<?= htmlspecialchars($f['EMAIL']) ?>"></td>
-                    <td><input type="checkbox" name="felhasznalok[<?= $index ?>][delete]"></td>
+                    <th>ID</th>
+                    <th>Név</th>
+                    <th>Email</th>
                 </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td>Új</td>
-                <td><input type="text" name="uj_felhasznalo[nev]"></td>
-                <td><input type="text" name="uj_felhasznalo[jelszo]"></td>
-                <td><input type="email" name="uj_felhasznalo[email]"></td>
-                <td></td>
-            </tr>
-        </table>
+                <?php if (count($nullaszocikk) == 0): ?> <tr>
+                        <td style="text-align:center;" colspan=4>Nincs ilyen felhasználó</td>
+                    </tr> <?php endif; ?>
+                <?php foreach ($nullaszocikk as $index => $n): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($n['ID']) ?></td>
+                        <td><?= htmlspecialchars($n['NEV']) ?></td>
+                        <td><?= htmlspecialchars($n['EMAIL']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
 
-        <h2>Kategóriák</h2>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>Név</th>
-                <th>Törlés</th>
-            </tr>
-            <?php foreach ($kategoriak as $index => $k): ?>
+        <div class="stat-card">
+            <h2>Szócikkek, amikhez nincs megfelelő lektor</h2>
+            <table border="1">
                 <tr>
-                    <td><?= htmlspecialchars($k['ID']) ?><input type="hidden" name="kategoriak[<?= $index ?>][id]" value="<?= htmlspecialchars($k['ID']) ?>"></td>
-                    <td><input type="text" name="kategoriak[<?= $index ?>][nev]" value="<?= htmlspecialchars($k['NEV']) ?>"></td>
-                    <td><input type="checkbox" name="kategoriak[<?= $index ?>][delete]"></td>
+                    <th>ID</th>
+                    <th>Cím</th>
+                    <th>Nyelv</th>
+                    <th>Szakterület</th>
                 </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td>Új</td>
-                <td><input type="text" name="uj_kategoria[nev]"></td>
-                <td></td>
-            </tr>
-        </table>
-
-        <h2>Kulcsszavak</h2>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>Szó</th>
-                <th>Törlés</th>
-            </tr>
-            <?php foreach ($kulcsszavak as $index => $kulcs): ?>
-                <tr>
-                    <td><?= htmlspecialchars($kulcs['ID']) ?><input type="hidden" name="kulcsszavak[<?= $index ?>][id]" value="<?= htmlspecialchars($kulcs['ID']) ?>"></td>
-                    <td><input type="text" name="kulcsszavak[<?= $index ?>][SZO]" value="<?= htmlspecialchars($kulcs['SZO']) ?>"></td>
-                    <td><input type="checkbox" name="kulcsszavak[<?= $index ?>][delete]"></td>
-                </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td>Új</td>
-                <td><input type="text" name="uj_kulcsszo[SZO]"></td>
-                <td></td>
-            </tr>
-        </table>
-
-        <h2>Témakörök</h2>
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>Név</th>
-                <th>Szülő téma ID</th>
-                <th>Törlés</th>
-            </tr>
-            <?php foreach ($temakorok as $index => $t): ?>
-                <tr>
-                    <td><?= htmlspecialchars($t['ID']) ?><input type="hidden" name="temakorok[<?= $index ?>][id]" value="<?= htmlspecialchars($t['ID']) ?>"></td>
-                    <td><input type="text" name="temakorok[<?= $index ?>][NEV]" value="<?= htmlspecialchars($t['NEV']) ?>"></td>
-                    <td><input type="number" name="temakorok[<?= $index ?>][SZULO_TEMA_ID]" value="<?= htmlspecialchars($t['SZULO_TEMA_ID']) ?>"></td>
-                    <td><input type="checkbox" name="temakorok[<?= $index ?>][delete]"></td>
-                </tr>
-            <?php endforeach; ?>
-            <tr>
-                <td>Új</td>
-                <td><input type="text" name="uj_temakor[NEV]"></td>
-                <td><input type="number" name="uj_temakor[SZULO_TEMA_ID]"></td>
-                <td></td>
-            </tr>
-        </table>
-
-        <br>
-        <button type="submit">Mentés</button>
-    </form>
+                <?php if (count($nincshozzalektor) == 0): ?> <tr>
+                        <td style="text-align:center;" colspan=4>Nincs ilyen szócikk</td>
+                    </tr> <?php endif; ?>
+                <?php foreach ($nincshozzalektor as $index => $n): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($n['ID']) ?></td>
+                        <td><?= htmlspecialchars($n['CIM']) ?></td>
+                        <td><?= htmlspecialchars($n['NYELV']) ?></td>
+                        <td><?= htmlspecialchars($n['SZO']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

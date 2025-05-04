@@ -33,6 +33,7 @@ h1 {
   width: 30%;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 8px;
 }
 
 .stat-card h2 {
