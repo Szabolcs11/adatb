@@ -84,7 +84,7 @@ if (isset($_SESSION['admin'])) {
                 $sql = "SELECT SZOCIKK.ID, SZOCIKK.CIM 
                         FROM SZOCIKK
                         INNER JOIN SZOCIKKTEMAKOR ON SZOCIKK.ID = SZOCIKKTEMAKOR.SZOCIKK_ID
-                        WHERE SZOCIKKTEMAKOR.TEMAKOR_ID = :temakor_id";
+                        WHERE SZOCIKKTEMAKOR.TEMAKOR_ID = :temakor_id GROUP BY SZOCIKK.ID, SZOCIKK.CIM";
 
                 $stmt = oci_parse($conn, $sql);
                 oci_bind_by_name($stmt, ":temakor_id", $temakorId);

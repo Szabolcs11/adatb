@@ -14,8 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $szoveg = isset($_POST['szoveg']) ? trim($_POST['szoveg']) : '';
 
     if ($szocikk_id && $felhasznalo_id && !empty($szoveg)) {
-        $sql = "INSERT INTO HIBA (SZOVEG, STATUSZ, FELHASZNALO_ID, SZOCIKK_ID)
-                VALUES (:szoveg, :statusz, :felhasznalo_id, :szocikk_id)";
+        $sql = "BEGIN BEJELENT_HIBA(:szoveg, :statusz, :felhasznalo_id, :szocikk_id); END;";
+        // $sql = "INSERT INTO HIBA (SZOVEG, STATUSZ, FELHASZNALO_ID, SZOCIKK_ID)
+        //         VALUES (:szoveg, :statusz, :felhasznalo_id, :szocikk_id)";
 
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ":szoveg", $szoveg);
