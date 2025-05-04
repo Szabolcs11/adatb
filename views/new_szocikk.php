@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = oci_fetch_assoc($stmt);
         $next_id = $row['NEXT_ID'];
 
-        $sql = "INSERT INTO SZOCIKK (ID, CIM, LETREHOZAS_DATUM, MODOSITAS_DATUM, NYELV, STATUSZ, SZERZO_ID, TARTALOM)
-                VALUES (:id, :cim, SYSDATE, SYSDATE, :nyelv, :statusz, :szerzo_id, :tartalom)";
+        $sql = "INSERT INTO SZOCIKK (CIM, LETREHOZAS_DATUM, MODOSITAS_DATUM, NYELV, STATUSZ, SZERZO_ID, TARTALOM)
+                VALUES (:cim, SYSDATE, SYSDATE, :nyelv, :statusz, :szerzo_id, :tartalom)";
         $stmt = oci_parse($conn, $sql);
-        oci_bind_by_name($stmt, ':id', $next_id);
+        // oci_bind_by_name($stmt, ':id', $next_id);
         oci_bind_by_name($stmt, ':cim', $cim);
         oci_bind_by_name($stmt, ':nyelv', $nyelv);
         oci_bind_by_name($stmt, ':statusz', $statusz);

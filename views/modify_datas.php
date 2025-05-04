@@ -156,16 +156,17 @@ $nincshozzalektor = fetchAll($conn, "SELECT sz.ID, sz.CIM, sz.NYELV, k.SZO
                                      FROM SZOCIKK sz
                                      INNER JOIN SZOCIKKKULCSSZO szk ON sz.ID = szk.SZOCIKK_ID
                                      INNER JOIN KULCSSZO k ON szk.KULCSSZO_ID = k.ID
-                                     INNER JOIN LEKTOR l ON l.SZAKTERULET = k.SZO
-                                     INNER JOIN LEKTORNYELV lny ON l.id = lny.LEKTOR_ID
                                      WHERE sz.ID NOT IN (
-                                         SELECT sz.ID
-                                         FROM SZOCIKK sz
-                                         INNER JOIN SZOCIKKKULCSSZO szk ON sz.ID = szk.SZOCIKK_ID
-                                         INNER JOIN KULCSSZO k ON szk.KULCSSZO_ID = k.ID
-                                         INNER JOIN LEKTOR l ON l.SZAKTERULET = k.SZO
-                                         INNER JOIN LEKTORNYELV lny ON l.id = lny.LEKTOR_ID
-                                         WHERE lny.NYELV = sz.NYELV AND l.SZAKTERULET = k.SZO
+                                         SELECT sz_sub.ID
+                                         FROM SZOCIKK sz_sub
+                                         INNER JOIN SZOCIKKKULCSSZO szk_sub ON sz_sub.ID = szk_sub.SZOCIKK_ID
+                                         INNER JOIN KULCSSZO k_sub ON szk_sub.KULCSSZO_ID = k_sub.ID
+                                         INNER JOIN LEKTOR l_sub ON l_sub.SZAKTERULET = k_sub.SZO
+                                         INNER JOIN LEKTORNYELV lny_sub ON l_sub.id = lny_sub.lektor_id
+                                         WHERE lny_sub.NYELV = sz_sub.NYELV AND l_sub.SZAKTERULET = k_sub.SZO
+                                     ) OR NOT EXISTS (
+                                         SELECT 1
+                                         FROM LEKTOR
                                      )");
 ?>
 
