@@ -1,6 +1,15 @@
 <?php
 require_once '../db/connection.php';
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: views/login_form.php");
+    exit;
+}
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $isAdmin = true;
+} else {
+    $isAdmin = false;
+}
 
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -35,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = oci_fetch_assoc($stmt);
         $next_id = $row['NEXT_ID'];
 
-        $sql = "INSERT INTO SZOCIKK (CIM, LETREHOZAS_DATUM, MODOSITAS_DATUM, NYELV, STATUSZ, SZERZO_ID, TARTALOM)
-                VALUES (:cim, SYSDATE, SYSDATE, :nyelv, :statusz, :szerzo_id, :tartalom)";
+        $sql = "INSERT INTO SZOCIKK (ID, CIM, LETREHOZAS_DATUM, MODOSITAS_DATUM, NYELV, STATUSZ, SZERZO_ID, TARTALOM)
+                VALUES (:id, :cim, SYSDATE, SYSDATE, :nyelv, :statusz, :szerzo_id, :tartalom)";
         $stmt = oci_parse($conn, $sql);
-        // oci_bind_by_name($stmt, ':id', $next_id);
+        oci_bind_by_name($stmt, ':id', $next_id);
         oci_bind_by_name($stmt, ':cim', $cim);
         oci_bind_by_name($stmt, ':nyelv', $nyelv);
         oci_bind_by_name($stmt, ':statusz', $statusz);
@@ -365,6 +374,7 @@ oci_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szócikk kezelés</title>
+    <link rel="stylesheet" href="./style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .form-container {
@@ -400,6 +410,18 @@ oci_close($conn);
 </head>
 
 <body>
+    <header>
+        <h1>WikiClone</h1>
+        <nav>
+            <a href="./../index.php">Főoldal</a>
+            <a href="./randomszocikk.php">Véletlenszerű szócikk</a>
+            <a href="./hibajelentes.php">Hibajelentés</a>
+            <?php if ($isAdmin) : ?>
+                <a href="./admin.php">Admin</a>
+            <?php endif; ?>
+            <a href="./../actions/logout.php">Kijelentkezés</a>
+        </nav>
+    </header>
     <div class="container mt-4">
         <h1 class="mb-4">Szócikk kezelés</h1>
 

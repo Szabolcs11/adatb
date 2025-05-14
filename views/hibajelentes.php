@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: views/login_form.php");
+    exit;
+}
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $isAdmin = true;
+} else {
+    $isAdmin = false;
+}
 require_once '../db/connection.php';
 
 $felhasznalo_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
@@ -15,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($szocikk_id && $felhasznalo_id && !empty($szoveg)) {
         $sql = "BEGIN BEJELENT_HIBA(:szoveg, :statusz, :felhasznalo_id, :szocikk_id); END;";
-        // $sql = "INSERT INTO HIBA (SZOVEG, STATUSZ, FELHASZNALO_ID, SZOCIKK_ID)
-        //         VALUES (:szoveg, :statusz, :felhasznalo_id, :szocikk_id)";
+        // $sql = "INSERT INTO HIBA (ID, SZOVEG, STATUSZ, FELHASZNALO_ID, SZOCIKK_ID)
+        //         VALUES (HIBA_SEQ.NEXTVAL, :szoveg, :statusz, :felhasznalo_id, :szocikk_id)";
 
         $stmt = oci_parse($conn, $sql);
         oci_bind_by_name($stmt, ":szoveg", $szoveg);
@@ -26,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (oci_execute($stmt)) {
             echo "<p>Hiba sikeresen be lett jelentve!</p>";
+            header("Location: hibajelentes.php?success=created");
         } else {
             echo "<p>Hiba történt a bejelentés során!</p>";
         }
@@ -52,19 +63,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin: auto;
         }
     </style>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <h1>WikiClone</h1>
         <nav>
-            <a href="#">Főoldal</a>
-            <a href="#">Véletlenszerű szócikk</a>
-            <a href="./../views/register_form.php">Regisztráció</a>
+            <a href="./../index.php">Főoldal</a>
+            <a href="./randomszocikk.php">Véletlenszerű szócikk</a>
+            <a href="./hibajelentes.php">Hibajelentés</a>
+            <?php if ($isAdmin) : ?>
+                <a href="./admin.php">Admin</a>
+            <?php endif; ?>
+            <a href="./../actions/logout.php">Kijelentkezés</a>
         </nav>
     </header>
     <main>
         <div class="container">
+            <?php if (isset($_GET['success'])): ?>
+                <div class="alert alert-success">
+                    <?php
+                    switch ($_GET['success']) {
+                        case 'created':
+                            echo 'Sikeresen be lett jelentve a hiba!';
+                            break;
+                    }
+                    ?>
+                </div>
+            <?php endif; ?>
             <h1>Hiba bejelentése</h1>
             <form action="hibajelentes.php" method="POST">
                 <label for="szocikk_id">Szócikk:</label><br>

@@ -1,5 +1,14 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: views/login_form.php");
+    exit;
+}
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $isAdmin = true;
+} else {
+    $isAdmin = false;
+}
 
 require_once './../db/connection.php';
 
@@ -34,10 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     if (!empty($_POST['uj_felhasznalo']['nev'])) {
-        $sql = "INSERT INTO felhasznalo (nev, jelszo, email, admin) VALUES (:nev, :jelszo, :email, 0)";
+        $hashed_password = password_hash($_POST['uj_felhasznalo']['jelszo'], PASSWORD_DEFAULT);
+        $sql = "INSERT INTO Felhasznalo (nev, jelszo, email, admin) VALUES (:nev, :jelszo, :email, 0)";
         $stid = oci_parse($conn, $sql);
         oci_bind_by_name($stid, ':nev', $_POST['uj_felhasznalo']['nev']);
-        oci_bind_by_name($stid, ':jelszo', password_hash($_POST['uj_felhasznalo']['jelszo'], PASSWORD_DEFAULT));
+        oci_bind_by_name($stid, ':jelszo', $hashed_password);
         oci_bind_by_name($stid, ':email', $_POST['uj_felhasznalo']['email']);
 
         if (!oci_execute($stid)) {
@@ -67,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         }
     }
     if (!empty($_POST['uj_kategoria']['nev'])) {
-        $sql = "INSERT INTO kategoria (nev) VALUES (:nev)";
+        $sql = "INSERT INTO kategoria (id, nev) VALUES (KATEGORIA_SEQ.NEXTVAL, :nev)";
         $stid = oci_parse($conn, $sql);
         oci_bind_by_name($stid, ':nev', $_POST['uj_kategoria']['nev']);
         oci_execute($stid);
@@ -92,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         }
     }
     if (!empty($_POST['uj_kulcsszo']['SZO'])) {
-        $sql = "INSERT INTO kulcsszo (szo) VALUES (:szo)";
+        $sql = "INSERT INTO kulcsszo (id, szo) VALUES (KULCSSZO_SEQ.NEXTVAL, :szo)";
         $stid = oci_parse($conn, $sql);
         oci_bind_by_name($stid, ':szo', $_POST['uj_kulcsszo']['SZO']);
         oci_execute($stid);
@@ -118,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         }
     }
     if (!empty($_POST['uj_temakor']['NEV'])) {
-        $sql = "INSERT INTO temakor (nev, szulo_tema_id) VALUES (:nev, :szulo)";
+        $sql = "INSERT INTO temakor (id, nev, szulo_tema_id) VALUES (TEMAKOR_SEQ.NEXTVAL, :nev, :szulo)";
         $stid = oci_parse($conn, $sql);
         oci_bind_by_name($stid, ':nev', $_POST['uj_temakor']['NEV']);
         oci_bind_by_name($stid, ':szulo', $_POST['uj_temakor']['SZULO_TEMA_ID']);
@@ -176,10 +186,23 @@ $nincshozzalektor = fetchAll($conn, "SELECT sz.ID, sz.CIM, sz.NYELV, k.SZO
 <head>
     <meta charset="UTF-8">
     <title>Adatkezelés</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modify_datas.css">
 </head>
 
 <body>
+    <header>
+        <h1>WikiClone</h1>
+        <nav>
+            <a href="./../index.php">Főoldal</a>
+            <a href="./randomszocikk.php">Véletlenszerű szócikk</a>
+            <a href="./hibajelentes.php">Hibajelentés</a>
+            <?php if ($isAdmin) : ?>
+                <a href="./admin.php">Admin</a>
+            <?php endif; ?>
+            <a href="./../actions/logout.php">Kijelentkezés</a>
+        </nav>
+    </header>
     <div class="container">
         <h1>Felhasználók, Kategóriák, Kulcsszavak, Témakörök kezelése</h1>
         <form method="POST">

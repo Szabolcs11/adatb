@@ -54,4 +54,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     oci_free_statement($stmt);
     oci_close($conn);
 }
-?>

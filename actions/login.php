@@ -18,6 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user['ID'];
         $_SESSION['user_name'] = $user['NEV'];
         $_SESSION['admin'] = $user['ADMIN'] == 1 ? true : false;
+        // Print user data for debugging
+        echo "<pre>";
+        print_r($user);
+        echo "</pre>";
         header("Location: ../index.php");
         exit;
     } else {

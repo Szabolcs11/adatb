@@ -4,7 +4,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: views/login_form.php");
     exit;
 }
-if (isset($_SESSION['admin'])) {
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
     $isAdmin = true;
 } else {
     $isAdmin = false;

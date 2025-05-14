@@ -36,7 +36,7 @@ if (isset($_GET["error"])) {
       <div class="form-box">
         <h2>Regisztráció</h2>
         <form method="post" action="./../actions/register.php">
-          <label for="reg-username">Felhasználónéb</label>
+          <label for="reg-username">Felhasználónév</label>
           <input type="text" id="reg-username" name="username" required>
 
           <label for="reg-email">Email cím</label>

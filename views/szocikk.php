@@ -1,4 +1,15 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: views/login_form.php");
+    exit;
+}
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $isAdmin = true;
+} else {
+    $isAdmin = false;
+}
+
 require_once '../db/connection.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -76,17 +87,13 @@ oci_close($conn);
         <nav>
             <a href="./../index.php">Főoldal</a>
             <a href="./randomszocikk.php">Véletlenszerű szócikk</a>
-            <a href="./../views/register_form.php">Regisztráció</a>
+            <a href="./hibajelentes.php">Hibajelentés</a>
+            <?php if ($isAdmin) : ?>
+                <a href="./admin.php">Admin</a>
+            <?php endif; ?>
+            <a href="./../actions/logout.php">Kijelentkezés</a>
         </nav>
     </header>
-    <!-- Debuggolás segédlet -->
-    <!-- <p>
-        <?php
-        echo "<pre>";
-        echo json_encode($szocikk, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        echo "</pre>";
-        ?>
-    </p> -->
     <main>
         <div class="container">
             <?php if ($szocikk): ?>

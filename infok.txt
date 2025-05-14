@@ -38,6 +38,18 @@ BEGIN
     WHERE ID = p_id;
 END;
 /
+
+CREATE OR REPLACE NONEDITIONABLE PROCEDURE "SYSTEM"."BEJELENT_HIBA" (
+    p_szoveg IN VARCHAR2,
+    p_statusz IN VARCHAR2,
+    p_felhasznalo_id IN NUMBER,
+    p_szocikk_id IN NUMBER
+)
+AS
+BEGIN
+    INSERT INTO HIBA (SZOVEG, STATUSZ, FELHASZNALO_ID, SZOCIKK_ID)
+    VALUES (p_szoveg, p_statusz, p_felhasznalo_id, p_szocikk_id);
+END BEJELENT_HIBA;
 new_szocikk.php 166. Sor BEGIN proc_torol_szocikk(:id); END;
 
 
@@ -109,3 +121,17 @@ SELECT COUNT(*) AS COUNT FROM TEMAKOR
 Témakörök listázása
 index.php 41. sor
 SELECT ID, NEV FROM TEMAKOR
+
+
+
+
+
+CREATE OR REPLACE PROCEDURE Lektorok_Tobb_Nyelven_proc (p_result OUT SYS_REFCURSOR) AS
+BEGIN
+    OPEN p_result FOR
+    SELECT l.id, l.tudomanyos_fokozat, COUNT(ln.id) AS nyelvdb
+    FROM Lektor l
+    JOIN LektorNyelv ln ON l.id = ln.lektor_id
+    GROUP BY l.id, l.tudomanyos_fokozat
+    HAVING COUNT(ln.id) >= 2;
+END;

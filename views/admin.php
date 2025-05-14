@@ -1,4 +1,15 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: views/login_form.php");
+    exit;
+}
+if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+    $isAdmin = true;
+} else {
+    $isAdmin = false;
+}
+
 require_once '../db/connection.php';
 
 // Alapértelmezetten OCI kapcsolatot feltételezek
@@ -32,10 +43,23 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Admin felület</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
+    <header>
+        <h1>WikiClone</h1>
+        <nav>
+            <a href="./../index.php">Főoldal</a>
+            <a href="./randomszocikk.php">Véletlenszerű szócikk</a>
+            <a href="./hibajelentes.php">Hibajelentés</a>
+            <?php if ($isAdmin) : ?>
+                <a href="./admin.php">Admin</a>
+            <?php endif; ?>
+            <a href="./../actions/logout.php">Kijelentkezés</a>
+        </nav>
+    </header>
     <div class="container">
         <h1>Admin Statisztikák</h1>
 
@@ -57,6 +81,9 @@ try {
         <div class="buttons">
             <a href="new_szocikk.php" class="btn">Új Szócikk</a>
             <a href="modify_datas.php" class="btn">Meglévő adatok kezelése</a>
+            <a href="lektor.php" class="btn">Lektorok kezelése</a>
+            <a href="lektornyelv.php" class="btn">Lektornyelvek kezelése</a>
+            <a href="hiba_modositas_torles.php" class="btn">Híbák módosítása törlése</a>
         </div>
     </div>
 </body>
