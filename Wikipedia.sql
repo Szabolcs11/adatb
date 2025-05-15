@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - Wednesday-May-14-2025   
+--  File created - Thursday-May-15-2025   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Type LOGMNR$COL_GG_REC
@@ -281,17 +281,22 @@ LOGMNR_SPARE4  DATE
 --  DDL for Sequence HIBA_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."HIBA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 26 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SYSTEM"."HIBA_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 37 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence KATEGORIA_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."KATEGORIA_SEQ"  MINVALUE 30 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 101 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SYSTEM"."KATEGORIA_SEQ"  MINVALUE 30 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 141 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence KULCSSZO_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."KULCSSZO_SEQ"  MINVALUE 10 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 30 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SYSTEM"."KULCSSZO_SEQ"  MINVALUE 10 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 50 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence LEKTORNYELV_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "SYSTEM"."LEKTORNYELV_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 18 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence LOGMNR_DIDS$
 --------------------------------------------------------
@@ -336,17 +341,17 @@ LOGMNR_SPARE4  DATE
 --  DDL for Sequence SZOCIKK_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."SZOCIKK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 9 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SYSTEM"."SZOCIKK_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 35 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence SZOCIKK_UPDATED_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."SZOCIKK_UPDATED_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 141 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SYSTEM"."SZOCIKK_UPDATED_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 181 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence TEMAKOR_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "SYSTEM"."TEMAKOR_SEQ"  MINVALUE 10 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 30 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "SYSTEM"."TEMAKOR_SEQ"  MINVALUE 10 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 50 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Table AQ$_INTERNET_AGENTS
 --------------------------------------------------------
@@ -559,7 +564,8 @@ LOGMNR_SPARE4  DATE
   CREATE TABLE "SYSTEM"."LEKTORNYELV" 
    (	"LEKTOR_ID" NUMBER, 
 	"NYELV" VARCHAR2(255 BYTE), 
-	"SZINT" VARCHAR2(50 BYTE)
+	"SZINT" VARCHAR2(50 BYTE), 
+	"ID" NUMBER
    ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -4382,14 +4388,31 @@ REM INSERTING into SYSTEM.AQ$_SCHEDULES
 SET DEFINE OFF;
 REM INSERTING into SYSTEM.FELHASZNALO
 SET DEFINE OFF;
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (1,'Kovács Péter','peter.kovacs@example.com','hashedpassword1',to_date('23-MAR-25','DD-MON-RR'),0);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (2,'Szabó Anna','anna.szabo@example.com','hashedpassword2',to_date('23-MAR-25','DD-MON-RR'),0);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (3,'Tóth Gergő','gergo.toth@example.com','hashedpassword3',to_date('23-MAR-25','DD-MON-RR'),0);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (4,'Nagy Júlia','julia.nagy@example.com','hashedpassword4',to_date('23-MAR-25','DD-MON-RR'),0);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (5,'Farkas Dávid','david.farkas@example.com','hashedpassword5',to_date('23-MAR-25','DD-MON-RR'),1);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (6,'Test','test.elek@gmail.com','$2y$10$cwROGOS8u656MUs2drml7OUi2C7IjYQeFGbvglNHjwjgfFWKp1fh6',to_date('14-MAY-25','DD-MON-RR'),0);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (8,'TestElek','test.elek2@gmail.com','$2y$10$jF3RHsPw.B27SYhJB9F4JuiKyQIXmAJfOI/vLlg5bdlDK9JToBB7G',to_date('14-MAY-25','DD-MON-RR'),0);
-Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (10,'asd','asd@asd.com','$2y$10$VfOaUpQDQE1/KNoDAZq4Sua8M5ErrkWZmX6kch7Z7VCg24UX.eFiy',to_date('14-MAY-25','DD-MON-RR'),1);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (1,'Kovács Péter','peter.kovacs@example.com','$2a$12$ujR83IMzUlVcs9Z93MUOYOkFRVINnOlVADethKhs9tlFGJbgxMIAq',to_date('23-MAR-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (2,'Szabó Anna','anna.szabo@example.com','$2a$12$ujR83IMzUlVcs9Z93MUOYOkFRVINnOlVADethKhs9tlFGJbgxMIAq',to_date('23-MAR-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (3,'Tóth Gergő','gergo.toth@example.com','$2a$12$ujR83IMzUlVcs9Z93MUOYOkFRVINnOlVADethKhs9tlFGJbgxMIAq',to_date('23-MAR-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (4,'Nagy Júlia','julia.nagy@example.com','$2a$12$ujR83IMzUlVcs9Z93MUOYOkFRVINnOlVADethKhs9tlFGJbgxMIAq',to_date('23-MAR-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (5,'Farkas Dávid','david.farkas@example.com','$2a$12$ujR83IMzUlVcs9Z93MUOYOkFRVINnOlVADethKhs9tlFGJbgxMIAq',to_date('23-MAR-25','DD-MON-RR'),1);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (6,'Kis Pista','test.elek@gmail.com','$2y$10$cwROGOS8u656MUs2drml7OUi2C7IjYQeFGbvglNHjwjgfFWKp1fh6',to_date('14-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (8,'TestElek','test.elek2@gmail.com','$2y$10$jF3RHsPw.B27SYhJB9F4JuiKyQIXmAJfOI/vLlg5bdlDK9JToBB7G',to_date('14-MAY-25','DD-MON-RR'),1);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (10,'Kovács János','asd@asd.com','$2y$10$VfOaUpQDQE1/KNoDAZq4Sua8M5ErrkWZmX6kch7Z7VCg24UX.eFiy',to_date('14-MAY-25','DD-MON-RR'),1);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (21,'Tóth Gábor','toth.gabor@gmail.com','$2y$10$cv6AJDa9PHGY6HYNlETCuujmEmJolnwsbfilbEDf5.whVqkb9cRs.',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (22,'Kiss Eszter','kiss.eszter@gmail.com','$2y$10$RTSEiTou1GNzksHdwvGWpuyiLZmcDi4XKtkIQc7jO8gTM3xhkMVii',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (23,'Lakatos Zoltán','lakatos.zoltan@gmail.com','$2y$10$rzLC/sH7648B.Oq2MC5pDOMznTMuVz0rjN1FS/kPiZV47FJ3Or8ge',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (24,'Horváth Tamás','horvath.tamas@gmail.com','$2y$10$T4gMP4cTOlskMxORe8/qkOPlDt3O1dmP5kjO5B7yynDN4W4BVIm9G',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (25,'Németh Viktória','nemeth.viktoria@gmail.com','$2y$10$jA88PR1azu6vEiLsfSZuE.ak8/ntXZp8m/H1q8iNd0xG1PWRoSGR6',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (26,'Fekete István','fekete.istvan@gmail.com','$2y$10$MqP2d7EsUr.fvWZkJGi3UO6eNSop4CJoj5HtLQ0luYaL.B/UWaVCi',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (27,'Török Noémi','torok.noemi@gmail.com','$2y$10$UAmLPgyoxzrPCT9u.fXba.U53fKZyZrRAJx2ypiKuBo4pBAQM1daO',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (28,'Papp András','papp.adras@gmail.com','$2y$10$PVvWkNqa9KvyBKOKm2TTEODWFWb0TNegkHuDOM09AFYvv6kSYVHTu',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (29,'Bereczki Edit','bereczki.edit@gmail.com','$2y$10$YXVK6yZfdfxc6Esx6nb/MOkT8/OcmQ0kJUQhtq9Saod3X.uzt9sKy',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (30,'Majoros Roland','majoros.roland@gmail.com','$2y$10$tXTMCuawMSRAI3IApqBYGuQ0u64aGV03m.lnpzA0cXdAMvBZElPSK',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (31,'Kocsis Márta','kocsis.marta@gmail.com','$2y$10$6xO9FStnKXFUnsm7o74EouUjrAT30aiNZhqFvJ755Z6E0BF1LaNy.',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (32,'Lévai Ádám','levai.adam@gmail.com','$2y$10$mM/tTwiXUJu1tyaft4v.CeVabPzSGamnQB7NzIctgGmWgDccfzvpy',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (33,'Császár Emese','csaszar.emese@gmail.com','$2y$10$TwHW9S8kZTnINpZXCeLVz.PBuAVXUQw0zhxv..3ZbJgkW6KsbCo/W',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (34,'Balogh Katalin','balogh.katalin@gmail.com','$2y$10$0FW916AFPEMAFFFgAwZ.uuND/xfAY9K85DDN2sQx1un9V0tr9f9Wi',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (35,'Molnár László','molnar.laszlo@gmail.com','$2y$10$JAZd.QxQe/fSCtg1DKXcf.RVaWzf0quCEqudt6QZge7xut5XKfaYm',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (36,'Papp Emese','papp.emese@gmail.com','$2y$10$4WPJc1XEBAYoYrcI9Gu0kOLoJUqZx9fY5lgeme0c42AitU.TRxm8S',to_date('15-MAY-25','DD-MON-RR'),0);
+Insert into SYSTEM.FELHASZNALO (ID,NEV,EMAIL,JELSZO,REGISZTRACIOS_DATUM,ADMIN) values (37,'Földvári József','foldvari.josef@gmail.com','$2y$10$vkTMkpkxl5cTyqrh6CfFLOiOLVD4Nc0/Kb/FOtCnj9DuRb02TKhye',to_date('15-MAY-25','DD-MON-RR'),0);
 REM INSERTING into SYSTEM.HELP
 SET DEFINE OFF;
 Insert into SYSTEM.HELP (TOPIC,SEQ,INFO) values ('@',1,null);
@@ -5374,7 +5397,17 @@ Insert into SYSTEM.HELP (TOPIC,SEQ,INFO) values ('COLUMN',33,null);
 Insert into SYSTEM.HELP (TOPIC,SEQ,INFO) values ('VARIABLE',26,null);
 REM INSERTING into SYSTEM.HIBA
 SET DEFINE OFF;
-Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (25,to_date('14-MAY-25','DD-MON-RR'),'Nyitott',10,23);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (26,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,17);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (28,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,10);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (27,to_date('15-MAY-25','DD-MON-RR'),'Feldolgozás alatt',8,28);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (29,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,15);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (30,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,26);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (31,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,4);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (32,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,33);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (33,to_date('15-MAY-25','DD-MON-RR'),'Javítva',8,29);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (34,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,1);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (35,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,18);
+Insert into SYSTEM.HIBA (ID,JELENTESI_DATUM,STATUSZ,FELHASZNALO_ID,SZOCIKK_ID) values (36,to_date('15-MAY-25','DD-MON-RR'),'Nyitott',8,5);
 REM INSERTING into SYSTEM.KATEGORIA
 SET DEFINE OFF;
 Insert into SYSTEM.KATEGORIA (ID,NEV) values (1,'Tudomány');
@@ -5382,18 +5415,55 @@ Insert into SYSTEM.KATEGORIA (ID,NEV) values (2,'Kultúra');
 Insert into SYSTEM.KATEGORIA (ID,NEV) values (3,'Sport');
 Insert into SYSTEM.KATEGORIA (ID,NEV) values (4,'Gazdaság');
 Insert into SYSTEM.KATEGORIA (ID,NEV) values (5,'Technológia');
-Insert into SYSTEM.KATEGORIA (ID,NEV) values (21,'Kategória1');
-Insert into SYSTEM.KATEGORIA (ID,NEV) values (22,'dsfg');
-Insert into SYSTEM.KATEGORIA (ID,NEV) values (81,'Kategória2');
-Insert into SYSTEM.KATEGORIA (ID,NEV) values (82,'Ketegória3');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (101,'Írók');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (102,'Színészek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (103,'Labdarúgók');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (104,'Sportolók');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (105,'Zenészek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (106,'Zeneművészek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (107,'Tudósok');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (108,'Történészek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (109,'Filmek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (110,'Település');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (111,'Építészek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (112,'Festők');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (113,'Találmányok');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (114,'Egyetemek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (115,'Televíziós sorozatok');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (116,'Költők');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (117,'Nobel-díjasok');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (118,'Növények');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (119,'Vallások');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (120,'Kultúrák');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (121,'Fényképek');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (122,'Digitalizáció');
+Insert into SYSTEM.KATEGORIA (ID,NEV) values (123,'Zöldenergia');
 REM INSERTING into SYSTEM.KULCSSZO
 SET DEFINE OFF;
-Insert into SYSTEM.KULCSSZO (ID,SZO) values (1,'energia');
-Insert into SYSTEM.KULCSSZO (ID,SZO) values (2,'tudomány');
-Insert into SYSTEM.KULCSSZO (ID,SZO) values (3,'művészet');
-Insert into SYSTEM.KULCSSZO (ID,SZO) values (4,'fizika');
-Insert into SYSTEM.KULCSSZO (ID,SZO) values (5,'gazdaság');
-Insert into SYSTEM.KULCSSZO (ID,SZO) values (10,'sport');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (1,'Energia');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (2,'Tudomány');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (3,'Művészet');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (4,'Fzika');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (5,'Gazdaság');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (10,'Sport');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (30,'Fenntarthatóság');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (31,'Innováció');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (32,'Mesterséges intelligencia');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (33,'Oktatás');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (34,'Globalizáció');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (35,'Klímaváltozás');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (36,'Képzőművészet');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (37,'Történelem');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (38,'Vállalkozás');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (39,'Biotechnológia');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (40,'Egészségügy');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (41,'Kiberbiztonság');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (42,'Fenntartható fejlődés');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (43,'Virtuális valóság');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (44,'Internet');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (45,'Autó');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (46,'Társadalom');
+Insert into SYSTEM.KULCSSZO (ID,SZO) values (47,'Zeneművészet');
 REM INSERTING into SYSTEM.LEKTOR
 SET DEFINE OFF;
 Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (1,'PhD','BME','Adatbázisok');
@@ -5402,15 +5472,22 @@ Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (3,
 Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (4,'MSc','DE','Hálózatok');
 Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (5,'PhD','PPKE','Mesterséges intelligencia');
 Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (21,'MSc','DE','Programtervező Informatikus');
+Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (41,'PhD','SZTE','Matematika');
+Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (42,'PhD','SZTE','Informatika');
+Insert into SYSTEM.LEKTOR (ID,TUDOMANYOS_FOKOZAT,INTEZET,SZAKTERULET) values (43,'MSc','PTE','Fizika');
 REM INSERTING into SYSTEM.LEKTORNYELV
 SET DEFINE OFF;
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (1,'magyar','Alap');
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (2,'szerb','Közép');
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (3,'angol','Középfok');
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (4,'német','Emelt');
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (5,'magyar',null);
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (2,'Kinai','Alap');
-Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT) values (2,'Kinai','Alap');
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (1,'magyar','Alap',1);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (2,'szerb','Kozepfok',2);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (3,'angol','Kozepfok',3);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (4,'német','Emelt',4);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (5,'magyar','Alap',5);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (2,'Kinai','Kozepfok',6);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (21,'Szerb','Alap',8);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (41,'Szerb','Kozepfok',15);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (21,'Szerb','Emelt',13);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (41,'Angol','Kozepfok',16);
+Insert into SYSTEM.LEKTORNYELV (LEKTOR_ID,NYELV,SZINT,ID) values (43,'Angol','Kozepfok',17);
 REM INSERTING into SYSTEM.LOGMNRC_CONCOL_GG
 SET DEFINE OFF;
 REM INSERTING into SYSTEM.LOGMNRC_CON_GG
@@ -6475,16 +6552,29 @@ Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZER
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (3,'Indexelés',to_date('23-MAR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',3,'Hogyan gyorsíthatók le a lekérdezések indexekkel?','szerb');
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (4,'Oracle Triggerek2',to_date('23-MAR-25','DD-MON-RR'),to_date('06-MAY-25','DD-MON-RR'),'Lektorálásra vár',4,'A triggerek használata Oracle adatbázisban.2','magyar');
 Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (5,'Tárolt Eljárások',to_date('23-MAR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',5,'A PL/SQL tárolt eljárások bemutatása.','magyar');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (21,'Tudomány és Technológia',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',1,'Ez egy cikk a technológiai fejlődésről.','magyar');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (22,'Művészet és Kultúra',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',2,'A művészet hatása a társadalomra.','francia');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (23,'Biológia alapjai',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',3,'A sejtek szerkezete és működése.','német');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (24,'Fizikai törvények',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',4,'Newton törvényeinek áttekintése.','német');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (25,'Történelem nagyjai',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',5,'A középkori uralkodók élete.','francia');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (83,'fdghdfg',to_date('04-MAY-25','DD-MON-RR'),to_date('04-MAY-25','DD-MON-RR'),'Piszkozat',1,'ghfdfgh','hdfghfd');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (42,'pola',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Lektorálásra vár',3,'polgi2','szerb');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (84,'Új magyar szócikk',to_date('04-MAY-25','DD-MON-RR'),to_date('06-MAY-25','DD-MON-RR'),'Lektorálásra vár',1,'magyar tartalom','magyar');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (44,'dfghdsfh251',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Archivált',1,'dsfhdsfhsdfh381','magyar');
-Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (62,'Alma234',to_date('26-APR-25','DD-MON-RR'),to_date('03-MAY-25','DD-MON-RR'),'Publikált',1,'far','magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (25,'A virtuális valóság fejlődése',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',35,'A virtuális valóság technológiai fejlődése és alkalmazásai.','Szerb');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (26,'A színészek szerepe a modern kultúrában',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',36,'Hogyan formálják a színészek a kultúrát és a közvéleményt?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (27,'A fenntarthatóság és a biotechnológia',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',37,'Hogyan segítheti a biotechnológia a fenntartható fejlődést?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (28,'A kultúrák közötti különbségek és hatások',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',21,'Hogyan hatnak egymásra különböző kultúrák a globális világban?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (29,'A sportolók élete és hatása a társadalomra',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',22,'A sportolók szerepe és hatása a közvéleményre és a társadalomra.','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (9,'A fenntartható gazdaság alapjai',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',22,'A fenntartható gazdaság elvei és alkalmazása a globális piacon.','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (10,'A Nobel-díjas tudósok és felfedezéseik',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',22,'A Nobel-díj története és a legfontosabb tudósok munkássága.','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (30,'A zöldenergia jövője és a technológia',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',23,'Hogyan segíthetik az új technológiák a zöldenergia elterjedését?','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (11,'A modern festészet legnagyobb alakjai',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',23,'A kortárs festők munkássága és hatása a művészeti világra.','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (12,'A sport és a társadalom kapcsolata',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',24,'Hogyan formálja a sport a társadalmi normákat és kultúrát?','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (13,'A zöldenergia szerepe a fenntarthatóságban',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',25,'Hogyan járul hozzá a zöldenergia a fenntartható fejlődéshez?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (14,'A filmipar fejlődése a digitális korszakban',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',26,'Hogyan alakítja a digitális technológia a filmipart és a filmes élményeket?','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (15,'A legnagyobb zeneművészek élete és munkássága',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',27,'A zeneművészet mesterei és azok hatása a zeneiparra.','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (16,'Képregények és azok kultúrtörténeti jelentősége',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',28,'A képregények fejlődése és hatása a popkultúrára.','Szerb');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (17,'A tudományos kutatások hatása a társadalomra',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',29,'Hogyan változtatják meg a tudományos felfedezések a társadalmat?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (18,'A várostervezés jövője',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',31,'Hogyan alakulnak a modern városok és hogyan segíti a várostervezés a fenntarthatóságot?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (19,'A globális gazdaság kihívásai',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',32,'A globális gazdaság legnagyobb kihívásai és a lehetséges megoldások.','Szerb');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (20,'A labdarúgás hatása a társadalomra',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',33,'A labdarúgás kultúrája és társadalmi jelentősége.','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (24,'Az építészet szerepe a modern társadalomban',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',34,'Hogyan befolyásolja az építészet a társadalmi és kulturális életet?','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (31,'A tudósok szerepe a modern világban',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',24,'Hogyan formálják a tudósok a tudományos és társadalmi fejlődést?','Magyar');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (32,'A televíziós sorozatok hatása a kultúrára',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',25,'Hogyan alakítják a televíziós sorozatok a kulturális trendeket?','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (33,'A közlekedési rendszerek jövője',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Lektorálásra vár',26,'Hogyan változik a közlekedés a jövőben és milyen új technológiai megoldások várnak ránk?','Angol');
+Insert into SYSTEM.SZOCIKK (ID,CIM,LETREHOZAS_DATUM,MODOSITAS_DATUM,STATUSZ,SZERZO_ID,TARTALOM,NYELV) values (34,'A tudományos felfedezések hatása az iparra',to_date('15-MAY-25','DD-MON-RR'),to_date('15-MAY-25','DD-MON-RR'),'Publikált',27,'Hogyan befolyásolják a tudományos felfedezések az ipari fejlődést?','Angol');
 REM INSERTING into SYSTEM.SZOCIKKKATEGORIA
 SET DEFINE OFF;
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (1,1);
@@ -6497,14 +6587,43 @@ Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (4,4);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (4,5);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (5,3);
 Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (5,5);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (42,3);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (42,4);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (42,22);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (44,2);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (44,4);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (62,4);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (84,4);
-Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (84,5);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (9,4);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (10,117);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (11,112);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (11,120);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (12,3);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (13,123);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (14,109);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (14,122);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (15,105);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (15,106);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (16,120);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (17,107);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (18,110);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (18,111);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (19,4);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (20,3);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (20,103);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (20,104);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (24,111);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (25,5);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (26,2);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (26,102);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (27,1);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (28,2);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (28,120);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (29,3);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (29,104);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (30,123);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (31,1);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (31,107);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (31,113);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (32,109);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (33,1);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (33,113);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (33,123);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (34,1);
+Insert into SYSTEM.SZOCIKKKATEGORIA (SZOCIKK_ID,KATEGORIA_ID) values (34,107);
 REM INSERTING into SYSTEM.SZOCIKKKULCSSZO
 SET DEFINE OFF;
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (1,1);
@@ -6517,13 +6636,45 @@ Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (3,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (4,1);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (4,4);
 Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (5,5);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (42,3);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (42,4);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (44,1);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (44,4);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (62,2);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (62,4);
-Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (84,4);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (9,5);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (9,30);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (10,2);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (11,36);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (12,10);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (12,46);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (13,1);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (13,30);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (13,42);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (14,3);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (14,44);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (15,47);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (16,33);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (16,37);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (17,2);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (17,46);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (18,42);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (19,5);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (19,31);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (19,34);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (20,10);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (20,46);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (24,46);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (25,31);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (25,43);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (26,3);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (27,2);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (27,30);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (27,42);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (28,34);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (29,10);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (29,46);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (30,1);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (30,5);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (31,2);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (32,2);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (32,46);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (33,31);
+Insert into SYSTEM.SZOCIKKKULCSSZO (SZOCIKK_ID,KULCSSZO_ID) values (34,2);
 REM INSERTING into SYSTEM.SZOCIKKLEKTOR
 SET DEFINE OFF;
 Insert into SYSTEM.SZOCIKKLEKTOR (SZOCIKK_ID,LEKTOR_ID) values (1,1);
@@ -6538,8 +6689,33 @@ Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (1,3);
 Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (3,5);
 Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (4,3);
 Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (4,5);
-Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (62,5);
-Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (84,5);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (9,42);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (10,10);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (11,4);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (12,34);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (13,2);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (14,36);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (15,35);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (16,44);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (17,30);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (18,46);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (18,47);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (19,49);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (20,34);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (24,46);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (25,2);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (26,33);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (26,36);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (27,2);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (28,33);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (29,34);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (30,2);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (31,2);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (31,10);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (32,36);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (33,45);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (34,2);
+Insert into SYSTEM.SZOCIKKTEMAKOR (SZOCIKK_ID,TEMAKOR_ID) values (34,49);
 REM INSERTING into SYSTEM.SZOCIKK_UPDATED
 SET DEFINE OFF;
 Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (1,62,'far',to_date('02-MAY-25','DD-MON-RR'));
@@ -6577,6 +6753,22 @@ Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) valu
 Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (102,84,'magyar tartalom',to_date('06-MAY-25','DD-MON-RR'));
 Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (103,4,'A triggerek használata Oracle adatbázisban.2',to_date('06-MAY-25','DD-MON-RR'));
 Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (121,8,'nincs',to_date('14-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (141,42,'polgi23',to_date('14-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (161,15,'A zeneművészet mesterei és azok hatása a zeneiparra.',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (162,16,'A képregények fejlődése és hatása a popkultúrára.',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (163,18,'Hogyan alakulnak a modern városok és hogyan segíti a várostervezés a fenntarthatóságot?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (164,19,'A globális gazdaság legnagyobb kihívásai és a lehetséges megoldások.',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (165,20,'A labdarúgás kultúrája és társadalmi jelentősége.',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (166,24,'Hogyan befolyásolja az építészet a társadalmi és kulturális életet?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (167,25,'A virtuális valóság technológiai fejlődése és alkalmazásai.',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (168,26,'Hogyan formálják a színészek a kultúrát és a közvéleményt?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (169,27,'Hogyan segítheti a biotechnológia a fenntartható fejlődést?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (170,28,'Hogyan hatnak egymásra különböző kultúrák a globális világban?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (171,29,'A sportolók szerepe és hatása a közvéleményre és a társadalomra.',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (172,30,'Hogyan segíthetik az új technológiák a zöldenergia elterjedését?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (173,31,'Hogyan formálják a tudósok a tudományos és társadalmi fejlődést?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (174,32,'Hogyan alakítják a televíziós sorozatok a kulturális trendeket?',to_date('15-MAY-25','DD-MON-RR'));
+Insert into SYSTEM.SZOCIKK_UPDATED (ID,SZOCIKKID,UJTARTALOM,MODOSITASDATUM) values (175,33,'Hogyan változik a közlekedés a jövőben és milyen új technológiai megoldások várnak ránk?',to_date('15-MAY-25','DD-MON-RR'));
 REM INSERTING into SYSTEM.TEMAKOR
 SET DEFINE OFF;
 Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (1,'Természet',null);
@@ -6586,6 +6778,26 @@ Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (4,'Művészet',3);
 Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (5,'Fizika',1);
 Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (10,'Oktatás',null);
 Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (14,'Egyetem',10);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (30,'Társadalmi egyenlőségek',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (31,'Divat és stílus',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (32,'Emberi jogok',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (33,'Kultúra',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (34,'Sport és Fitness',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (35,'Zeneipar',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (36,'Filmipar',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (37,'Élelmiszeripar',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (38,'Táplálkozás',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (39,'Utazás',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (40,'Munkaerőpiac',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (41,'Szociológia',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (42,'Vállalkozás',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (43,'Szabadidő',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (44,'Képregények',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (45,'Közlekedés',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (46,'Építészet',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (47,'Várostervezés',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (48,'Karrier',null);
+Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (49,'Gazdaság',null);
 --------------------------------------------------------
 --  DDL for Index LOGMNRT_MDDL$_PK
 --------------------------------------------------------
@@ -8401,6 +8613,19 @@ Insert into SYSTEM.TEMAKOR (ID,NEV,SZULO_TEMA_ID) values (14,'Egyetem',10);
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "SYSAUX" ) ;
+--------------------------------------------------------
+--  DDL for Trigger LEKTORNYELV_BI
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SYSTEM"."LEKTORNYELV_BI" 
+BEFORE INSERT ON LEKTORNYELV
+FOR EACH ROW
+ WHEN (NEW.ID IS NULL) BEGIN
+  :NEW.ID := LEKTORNYELV_SEQ.NEXTVAL;
+END;
+
+/
+ALTER TRIGGER "SYSTEM"."LEKTORNYELV_BI" ENABLE;
 --------------------------------------------------------
 --  DDL for Trigger TRG_SZOCIKK_CHECK_REVIEW
 --------------------------------------------------------
