@@ -104,26 +104,44 @@ while ($row = oci_fetch_assoc($stmt)) {
 
     <h3>Statisztikák:</h3>
 
-    <h4>1. Intézetenkénti lektorok száma</h4>
+    <h4>Legalább 2 PhD fokozatú és középfokkal rendelkező lektorok száma intézetenként</h4>
     <ul>
         <?php
-        $sql = "SELECT intezet, COUNT(*) AS lektorok_szama FROM Lektor GROUP BY intezet";
+        $sql = "SELECT lektorok.Intezet, COUNT(*) AS phd_lektorok_szama
+FROM (
+    SELECT DISTINCT l.id, l.Intezet
+    FROM Lektor l
+    JOIN Lektornyelv ln ON l.id = ln.Lektor_Id
+    WHERE l.tudomanyos_fokozat = 'PhD'
+      AND ln.Szint = 'Kozepfok'
+) lektorok
+GROUP BY lektorok.Intezet
+HAVING COUNT(*) >= 2
+ORDER BY phd_lektorok_szama DESC";
         $stmt = oci_parse($conn, $sql);
         oci_execute($stmt);
         while ($row = oci_fetch_assoc($stmt)) {
-            echo "<li>Intézet: {$row['INTEZET']} – Lektorok: {$row['LEKTOROK_SZAMA']}</li>";
+            echo "<li>Intézet: {$row['INTEZET']} – Lektorok: {$row['PHD_LEKTOROK_SZAMA']}</li>";
         }
         ?>
     </ul>
 
-    <h4>2. Nyelvek száma szintenként</h4>
+    <h4>Fizikai szakterületű lektorok nyelvi szintjeinek száma</h4>
     <ul>
         <?php
-        $sql = "SELECT szint, COUNT(*) AS nyelvek_szama FROM LektorNyelv GROUP BY szint";
-        $stmt = oci_parse($conn, $sql);
-        oci_execute($stmt);
-        while ($row = oci_fetch_assoc($stmt)) {
-            echo "<li>Szint: {$row['SZINT']} – Nyelvek: {$row['NYELVEK_SZAMA']}</li>";
+        $sql = 'SELECT ln.Szint, COUNT(*) AS nyelvek_szama
+        FROM Lektornyelv ln
+        JOIN (
+            SELECT id FROM Lektor WHERE SZAKTERULET = \'Fizika\'
+        ) fizikai ON ln.Lektor_Id = fizikai.id
+        GROUP BY ln.Szint
+        ORDER BY nyelvek_szama DESC';
+
+        $stid = oci_parse($conn, $sql);
+        oci_execute($stid);
+
+        while ($row = oci_fetch_assoc($stid)) {
+            echo $row['SZINT'] . ": " . $row['NYELVEK_SZAMA'] . "<br>";
         }
         ?>
     </ul>

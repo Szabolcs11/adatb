@@ -96,7 +96,8 @@ while ($row = oci_fetch_assoc($stmt)) {
     <ul>
         <?php foreach ($lektornyelvek as $lny): ?>
             <li>
-                <?php echo "Lektor ID: " . $lny['LEKTOR_ID'] . ", Nyelv: " . $lny['NYELV'] . ", Szint: " . $lny['SZINT']; ?>
+                <?php echo "ID: " . $lny['ID'] . ", Lektor ID: " . $lny['LEKTOR_ID'] . ", Nyelv: " . $lny['NYELV'] . ", Szint: " . $lny['SZINT']; ?>
+                <!-- <?php echo "Lektor ID: " . $lny['LEKTOR_ID'] . ", Nyelv: " . $lny['NYELV'] . ", Szint: " . $lny['SZINT']; ?> -->
             </li>
         <?php endforeach; ?>
     </ul>
