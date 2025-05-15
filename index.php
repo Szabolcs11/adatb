@@ -38,11 +38,22 @@ if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             <ul>
                 <?php
                 require_once './db/connection.php';
-                $sql = "SELECT ID, NEV FROM TEMAKOR";
+                $sql = "
+                    SELECT t.ID, t.NEV, COUNT(st.SZOCIKK_ID) AS szocikkek_szama
+                    FROM TEMAKOR t
+                    LEFT JOIN SZOCIKKTEMAKOR st ON t.ID = st.TEMAKOR_ID
+                    GROUP BY t.ID, t.NEV
+                ";
                 $stmt = oci_parse($conn, $sql);
                 oci_execute($stmt);
                 while ($row = oci_fetch_assoc($stmt)) {
-                    echo '<li><a href="index.php?temakor=' . htmlspecialchars($row['ID']) . '">' . htmlspecialchars($row['NEV']) . '</a></li>';
+                    if (isset($row['SZOCIKKEK_SZAMA'])) {
+                        echo '<li><a href="index.php?temakor=' . htmlspecialchars($row['ID']) . '">' . htmlspecialchars($row['NEV']) . '</a>';
+                        echo ' (' . htmlspecialchars($row['SZOCIKKEK_SZAMA']) . ' szócikk)</li>';
+                    } else {
+                        echo '<li><a href="index.php?temakor=' . htmlspecialchars($row['ID']) . '">' . htmlspecialchars($row['NEV']) . '</a>';
+                        echo ' (0 szócikk)</li>';
+                    }
                 }
                 oci_free_statement($stmt);
                 ?>

@@ -178,6 +178,20 @@ $nincshozzalektor = fetchAll($conn, "SELECT sz.ID, sz.CIM, sz.NYELV, k.SZO
                                          SELECT 1
                                          FROM LEKTOR
                                      )");
+
+$szocikkekmodositasokszamaalapjan = fetchAll($conn, "SELECT 
+    szocikk.id,
+    szocikk.cim,
+    COUNT(szocikk_updated.id) AS MODOSITASOK_SZAMA
+    FROM
+    szocikk
+    JOIN
+    szocikk_updated ON szocikk.id = szocikk_updated.szocikkid
+    GROUP BY
+    szocikk.id, szocikk.cim
+    ORDER BY
+    MODOSITASOK_SZAMA DESC
+    ");
 ?>
 
 <!DOCTYPE html>
@@ -359,6 +373,27 @@ $nincshozzalektor = fetchAll($conn, "SELECT sz.ID, sz.CIM, sz.NYELV, k.SZO
                         <td><?= htmlspecialchars($n['CIM']) ?></td>
                         <td><?= htmlspecialchars($n['NYELV']) ?></td>
                         <td><?= htmlspecialchars($n['SZO']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+
+        <div class="stat-card">
+            <h2>Szócikkek módosítások száma alapján</h2>
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Cím</th>
+                    <th>Módosítások száma</th>
+                </tr>
+                <?php if (count($szocikkekmodositasokszamaalapjan) == 0): ?> <tr>
+                        <td style="text-align:center;" colspan=4>Nincs szócikk</td>
+                    </tr> <?php endif; ?>
+                <?php foreach ($szocikkekmodositasokszamaalapjan as $index => $n): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($n['ID']) ?></td>
+                        <td><?= htmlspecialchars($n['CIM']) ?></td>
+                        <td><?= htmlspecialchars($n['MODOSITASOK_SZAMA']) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </table>
